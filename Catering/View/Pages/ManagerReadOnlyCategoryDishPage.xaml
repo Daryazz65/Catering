@@ -1,0 +1,62 @@
+﻿<Page x:Class="Catering.View.Pages.ManagerReadOnlyCategoryDishPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Catering.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ManagerReadOnlyCategoryDishPage">
+
+    <Grid Background="#FFF9F3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock Foreground="#EE9C6A" Text="Категории" FontWeight="Bold" Margin="0 0 0 8" />
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                    <Button Name="AddCategoryBtn" Content="Добавить" Click="AddCategoryBtn_Click" Width="90" Margin="0 0 8 0" />
+                    <Button Name="DeleteCategoryBtn" Content="Удалить" Click="DeleteCategoryBtn_Click" Width="90" />
+                </StackPanel>
+            </StackPanel>
+            <DataGrid x:Name="CategoriesDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" VerticalAlignment="Stretch">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" Width="50" />
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock Foreground="#EE9C6A" Text="Блюда" FontWeight="Bold" Margin="0 0 0 8" />
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                    <Button Name="AddDishBtn" Content="Добавить" Click="AddDishBtn_Click" Width="90" Margin="0 0 8 0" />
+                    <Button Name="DeleteDishBtn" Content="Удалить" Click="DeleteDishBtn_Click" Width="90" />
+                </StackPanel>
+            </StackPanel>
+            <DataGrid x:Name="DishesDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" RowEditEnding="DishesDataGrid_RowEditEnding" VerticalAlignment="Stretch">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" Width="50" />
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*" />
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="200" />
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80" />
+                    <DataGridComboBoxColumn Header="Категория" SelectedValueBinding="{Binding IdCategory}" SelectedValuePath="Id" DisplayMemberPath="Name" Width="160" />
+                    <DataGridCheckBoxColumn Header="Доступно" Binding="{Binding IsAvailable}" Width="80" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>

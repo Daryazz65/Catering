@@ -1,0 +1,26 @@
+﻿<Window x:Class="Catering.View.Windows.CaptchaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Catering.View.Windows"
+        mc:Ignorable="d"
+        Title="Captcha" Height="200" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Background="#FFF9F3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Image Source="/Resources/капча.png" />
+
+        <TextBlock x:Name="CaptchaTextBlock" TextWrapping="Wrap" Foreground="Blue"
+                   Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox x:Name="CaptchaInput" Width="200" Height="40" Margin="10"/>
+            <Button x:Name="VerifyButton" Width="75" 
+                    Height="40" Margin="10" Click="VerifyButton_Click">
+                <TextBlock Text="Проверить" FontSize="13"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

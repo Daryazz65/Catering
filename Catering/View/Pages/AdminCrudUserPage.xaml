@@ -1,0 +1,36 @@
+﻿<Page x:Class="Catering.View.Pages.AdminCrudUserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Catering.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminCrudUserPage">
+
+    <Grid Background="#FFF9F3" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 0 10">
+            <Button Name="AddUserBtn" Content="Добавить" Click="AddUserBtn_Click"  Width="100" Margin="0 0 8 0" />
+            <Button Name="DeleteUserBtn" Content="Удалить" Click="DeleteUserBtn_Click" Width="100" />
+            <Button Name="RefreshBtn" Content="Обновить" Click="RefreshBtn_Click" Width="100" Margin="8 0 0 0" />
+        </StackPanel>
+
+        <DataGrid x:Name="UsersDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="False" RowEditEnding="UsersDataGrid_RowEditEnding">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" Width="50" />
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="*" />
+                <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="150" />
+                <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" Width="120" />
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="120" />
+                <!-- Редактируемая колонка роли: выбираем по имени, сохраняется в IdRole -->
+                <DataGridComboBoxColumn Header="Роль" SelectedValueBinding="{Binding IdRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        SelectedValuePath="Id" DisplayMemberPath="Name" Width="180" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

@@ -1,0 +1,87 @@
+﻿<Page x:Class="Catering.View.Pages.ClientReadOnlyOrderPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:conv="clr-namespace:Catering.Converters"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Catering.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ClientReadOnlyOrderPage">
+
+    <Page.Resources>
+        <conv:OrderItemTotalConverter x:Key="OrderItemTotalConverter" />
+    </Page.Resources>
+
+    <Grid Background="#FFF9F3" Margin="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="12" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 0 8">
+                <Button Name="RefreshBtn" Content="Обновить" Click="RefreshBtn_Click" Width="100" />
+            </StackPanel>
+            <DataGrid x:Name="OrdersDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionChanged="OrdersDataGrid_SelectionChanged" VerticalAlignment="Stretch">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" Width="50" />
+                    <DataGridTextColumn Header="Дата" Binding="{Binding OrderDate}" Width="150" />
+                    <DataGridTextColumn Header="Сумма" Binding="{Binding TotalSum}" Width="100" />
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status.Name}" Width="120" />
+                    <DataGridTextColumn Header="Адрес" Binding="{Binding DeliveryAddress}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Border Grid.Column="2" Background="#FFF9F3" CornerRadius="6" Padding="12" BorderBrush="#ddd" BorderThickness="1">
+            <StackPanel >
+                <TextBlock Foreground="#EE9C6A" Text="Детали заказа" FontWeight="Bold" FontSize="16" Margin="0 0 0 8" />
+                <TextBlock Foreground="#EE9C6A" Text="Статус:" FontWeight="Bold" />
+                <TextBlock Foreground="#EE9C6A" x:Name="StatusText" Margin="0 0 0 8" />
+                <TextBlock Foreground="#EE9C6A" Text="Адрес доставки:" FontWeight="Bold" />
+                <TextBlock Foreground="#EE9C6A" x:Name="AddressText" TextWrapping="Wrap" Margin="0 0 0 8" />
+                <TextBlock Foreground="#EE9C6A" Text="Комментарий:" FontWeight="Bold" />
+                <TextBlock Foreground="#EE9C6A" x:Name="CommentText" TextWrapping="Wrap" Margin="0 0 0 8" />
+
+                <TextBlock Text="Позиции:" FontWeight="Bold" Margin="0 6 0 6" />
+                <ScrollViewer Height="240">
+                    <ItemsControl x:Name="ItemsControlOrderItems">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="White" BorderThickness="1" Padding="8" Margin="0 0 0 8" CornerRadius="4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                            <TextBlock Foreground="#EE9C6A" Text="{Binding Dish.Name}" FontWeight="Bold" />
+                                            <TextBlock Foreground="#EE9C6A">
+                                            <Run Text="Кол-во: " />
+                                            <Run Text="{Binding Quantity}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                        <TextBlock Foreground="#EE9C6A" Grid.Column="1" FontWeight="Bold" VerticalAlignment="Center">
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource OrderItemTotalConverter}" StringFormat="{}{0:0.##} руб.">
+                                                <Binding Path="Quantity" />
+                                                <Binding Path="PriceAtMoment" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
