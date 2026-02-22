@@ -39,15 +39,15 @@
             </DataGrid>
         </Grid>
 
-        <Border Grid.Column="2" Background="#FFF9F3" CornerRadius="6" Padding="12" BorderBrush="#ddd" BorderThickness="1">
+        <Border Background="#EE9C6A" Grid.Column="2" CornerRadius="6" Padding="12" BorderBrush="#ddd" BorderThickness="1">
             <StackPanel >
-                <TextBlock Foreground="#EE9C6A" Text="Детали заказа" FontWeight="Bold" FontSize="16" Margin="0 0 0 8" />
-                <TextBlock Foreground="#EE9C6A" Text="Статус:" FontWeight="Bold" />
-                <TextBlock Foreground="#EE9C6A" x:Name="StatusText" Margin="0 0 0 8" />
-                <TextBlock Foreground="#EE9C6A" Text="Адрес доставки:" FontWeight="Bold" />
-                <TextBlock Foreground="#EE9C6A" x:Name="AddressText" TextWrapping="Wrap" Margin="0 0 0 8" />
-                <TextBlock Foreground="#EE9C6A" Text="Комментарий:" FontWeight="Bold" />
-                <TextBlock Foreground="#EE9C6A" x:Name="CommentText" TextWrapping="Wrap" Margin="0 0 0 8" />
+                <TextBlock Text="Детали заказа" FontWeight="Bold" FontSize="16" Margin="0 0 0 8" />
+                <TextBlock Text="Статус:" FontWeight="Bold" />
+                <TextBlock x:Name="StatusText" Margin="0 0 0 8" />
+                <TextBlock Text="Адрес доставки:" FontWeight="Bold" />
+                <TextBlock x:Name="AddressText" TextWrapping="Wrap" Margin="0 0 0 8" />
+                <TextBlock Text="Комментарий:" FontWeight="Bold" />
+                <TextBlock x:Name="CommentText" TextWrapping="Wrap" Margin="0 0 0 8" />
 
                 <TextBlock Text="Позиции:" FontWeight="Bold" Margin="0 6 0 6" />
                 <ScrollViewer Height="240">
@@ -61,13 +61,13 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0">
-                                            <TextBlock Foreground="#EE9C6A" Text="{Binding Dish.Name}" FontWeight="Bold" />
-                                            <TextBlock Foreground="#EE9C6A">
+                                            <TextBlock Text="{Binding Dish.Name}" FontWeight="Bold" />
+                                            <TextBlock>
                                             <Run Text="Кол-во: " />
                                             <Run Text="{Binding Quantity}" />
                                         </TextBlock>
                                     </StackPanel>
-                                        <TextBlock Foreground="#EE9C6A" Grid.Column="1" FontWeight="Bold" VerticalAlignment="Center">
+                                        <TextBlock Grid.Column="1" FontWeight="Bold" VerticalAlignment="Center">
                                         <TextBlock.Text>
                                             <MultiBinding Converter="{StaticResource OrderItemTotalConverter}" StringFormat="{}{0:0.##} руб.">
                                                 <Binding Path="Quantity" />

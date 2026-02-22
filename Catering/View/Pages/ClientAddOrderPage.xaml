@@ -15,7 +15,6 @@
             <ColumnDefinition Width="1.2*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Left: categories + dishes -->
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -24,17 +23,35 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Foreground="#EE9C6A" Text="Выберите категорию" FontWeight="Bold" Margin="0 0 0 6" />
-            <ScrollViewer Grid.Row="1" MinHeight="50" VerticalScrollBarVisibility="Disabled">
+            <ScrollViewer Grid.Row="1" MinHeight="50" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" CanContentScroll="False">
                 <StackPanel Orientation="Horizontal" x:Name="CategoriesPanel" />
             </ScrollViewer>
 
             <TextBlock Grid.Row="2" Foreground="#EE9C6A" Text="Блюда" FontWeight="Bold" Margin="0 12 0 6" />
-            <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
-                <WrapPanel x:Name="DishesPanel" ItemHeight="160" ItemWidth="220" />
-            </ScrollViewer>
+            <ListBox x:Name="DishesListBox" Grid.Row="3" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White" CornerRadius="6" BorderBrush="#ddd" BorderThickness="1" Padding="8" Margin="0 0 0 8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" TextWrapping="Wrap" Foreground="#333" />
+                                    <TextBlock Text="{Binding Description}" FontSize="12" Foreground="#666" TextWrapping="Wrap" MaxHeight="72" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <Button Content="Подробнее" Width="120" Margin="0 0 0 6" Tag="View" />
+                                    <Button Content="Добавить" Width="120" Tag="Quick" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
 
-        <!-- Right: cart -->
         <Border Grid.Column="2" Background="#FFE5D1" CornerRadius="6" Padding="12" BorderBrush="White" BorderThickness="1">
             <Grid>
                 <Grid.RowDefinitions>

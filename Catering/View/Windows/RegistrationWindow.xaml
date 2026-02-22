@@ -16,7 +16,6 @@
 
         <TextBlock Foreground="#EE9C6A" Text="Регистрация" FontSize="34" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-        <!-- Центр: форма -->
         <Border Grid.Row="1" CornerRadius="6" Padding="20" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Width="600" >
                 <Grid Margin="5">

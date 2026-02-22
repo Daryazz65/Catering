@@ -22,10 +22,6 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
                 <TextBlock Foreground="#EE9C6A" Text="Категории" FontWeight="Bold" Margin="0 0 0 8" />
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
-                    <Button Name="AddCategoryBtn" Content="Добавить" Click="AddCategoryBtn_Click" Width="90" Margin="0 0 8 0" />
-                    <Button Name="DeleteCategoryBtn" Content="Удалить" Click="DeleteCategoryBtn_Click" Width="90" />
-                </StackPanel>
             </StackPanel>
             <DataGrid x:Name="CategoriesDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" VerticalAlignment="Stretch">
                 <DataGrid.Columns>
@@ -42,12 +38,8 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
                 <TextBlock Foreground="#EE9C6A" Text="Блюда" FontWeight="Bold" Margin="0 0 0 8" />
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
-                    <Button Name="AddDishBtn" Content="Добавить" Click="AddDishBtn_Click" Width="90" Margin="0 0 8 0" />
-                    <Button Name="DeleteDishBtn" Content="Удалить" Click="DeleteDishBtn_Click" Width="90" />
-                </StackPanel>
             </StackPanel>
-            <DataGrid x:Name="DishesDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" RowEditEnding="DishesDataGrid_RowEditEnding" VerticalAlignment="Stretch">
+            <DataGrid x:Name="DishesDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" VerticalAlignment="Stretch">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" Width="50" />
                     <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*" />

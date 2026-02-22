@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Catering.AppData;
+using System;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Catering.AppData;
-using Catering.Model;
-using System.Data.Entity;
 
 namespace Catering.View.Pages
 {
@@ -68,7 +57,6 @@ namespace Catering.View.Pages
                     return;
                 }
 
-                // Валидация уникальности логина
                 var newLogin = LoginText.Text.Trim();
                 if (!string.IsNullOrWhiteSpace(newLogin))
                 {
@@ -95,7 +83,6 @@ namespace Catering.View.Pages
                 }
 
                 context.SaveChanges();
-                // Обновим App.CurrentUser
                 App.CurrentUser = tracked;
                 MessageBoxHelper.Information("Профиль сохранён.");
             }

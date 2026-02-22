@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Catering.AppData;
+﻿using Catering.AppData;
 using Catering.Model;
+using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Data.Entity;
 
 namespace Catering.View.Pages
 {
@@ -30,6 +17,8 @@ namespace Catering.View.Pages
         {
             InitializeComponent();
             LoadData();
+            OrdersDataGrid.BeginningEdit += OrdersDataGrid_BeginningEdit;
+            OrderItemsDataGrid.BeginningEdit += OrderItemsDataGrid_BeginningEdit;
         }
 
         private void LoadData()
@@ -43,7 +32,6 @@ namespace Catering.View.Pages
                 var statuses = context.Status.ToList();
                 var users = context.User.ToList();
 
-                // OrderItems combobox sources
                 var dishCol = OrderItemsDataGrid.Columns.OfType<DataGridComboBoxColumn>().FirstOrDefault(c => c.Header.ToString() == "Блюдо");
                 if (dishCol != null)
                     dishCol.ItemsSource = dishes;
@@ -54,7 +42,6 @@ namespace Catering.View.Pages
 
                 OrderItemsDataGrid.ItemsSource = items;
 
-                // Orders grid
                 OrdersDataGrid.ItemsSource = orders;
                 var statusCol = OrdersDataGrid.Columns.OfType<DataGridComboBoxColumn>().FirstOrDefault(c => c.Header.ToString() == "Статус");
                 if (statusCol != null)
@@ -67,6 +54,42 @@ namespace Catering.View.Pages
             catch (Exception ex)
             {
                 MessageBoxHelper.Error("Не удалось загрузить элементы заказа: " + ex.Message);
+            }
+        }
+
+        private void OrdersDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            try
+            {
+                var header = e.Column.Header?.ToString();
+                if (!string.IsNullOrWhiteSpace(header) && header == "Пользователь")
+                {
+                    e.Cancel = true;
+                    MessageBoxHelper.Information("Поле 'Пользователь' изменять нельзя.");
+                }
+            }
+            catch (Exception ex)
+            {
+                e.Cancel = true;
+                MessageBoxHelper.Error("Не удалось начать редактирование: " + ex.Message);
+            }
+        }
+
+        private void OrderItemsDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            try
+            {
+                var header = e.Column.Header?.ToString();
+                if (!string.IsNullOrWhiteSpace(header) && (header == "Заказ" || header == "Блюдо"))
+                {
+                    e.Cancel = true;
+                    MessageBoxHelper.Information($"Поле '{header}' изменять нельзя.");
+                }
+            }
+            catch (Exception ex)
+            {
+                e.Cancel = true;
+                MessageBoxHelper.Error("Не удалось начать редактирование: " + ex.Message);
             }
         }
 
@@ -177,7 +200,6 @@ namespace Catering.View.Pages
                     {
                         var context = App.GetContext();
 
-                        // Валидация количества
                         if (edited.Quantity <= 0)
                         {
                             MessageBoxHelper.Error("Количество должно быть больше 0.");
@@ -185,7 +207,6 @@ namespace Catering.View.Pages
                             return;
                         }
 
-                        // Подстановка цены из блюда, если не указана
                         if (edited.PriceAtMoment <= 0)
                         {
                             var dish = context.Dish.Find(edited.IdDish);
@@ -319,7 +340,6 @@ namespace Catering.View.Pages
             {
                 var context = App.GetContext();
                 var toDelete = context.Order.Include(o => o.OrderItem).First(o => o.Id == selected.Id);
-                // Удалим связанные элементы
                 foreach (var oi in toDelete.OrderItem.ToList())
                 {
                     context.OrderItem.Remove(oi);

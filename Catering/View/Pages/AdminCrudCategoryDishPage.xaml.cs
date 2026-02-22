@@ -1,19 +1,9 @@
 ﻿using Catering.AppData;
 using Catering.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Catering.View.Pages
 {
@@ -65,7 +55,6 @@ namespace Catering.View.Pages
             var dishes = context.Dish.ToList();
             DishesDataGrid.ItemsSource = dishes;
 
-            // Установим список категорий как ItemsSource для колонки ComboBox
             var comboCol = DishesDataGrid.Columns.OfType<DataGridComboBoxColumn>().FirstOrDefault();
             if (comboCol != null)
             {
@@ -98,7 +87,6 @@ namespace Catering.View.Pages
             var context = App.GetContext();
             try
             {
-                // Удаление категории может нарушить ссылки на блюда
                 var toDelete = context.Category.First(c => c.Id == selected.Id);
                 context.Category.Remove(toDelete);
                 context.SaveChanges();

@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Catering.AppData;
+using System;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Catering.AppData;
-using Catering.Model;
-using System.Data.Entity;
 
 namespace Catering.View.Pages
 {
@@ -38,7 +27,6 @@ namespace Catering.View.Pages
                 if (user == null)
                 {
                     MessageBoxHelper.Error("Пользователь не найден.");
-                    // Очистим UI
                     OrdersDataGrid.ItemsSource = null;
                     ItemsControlOrderItems.ItemsSource = null;
                     StatusText.Text = "";
@@ -55,7 +43,6 @@ namespace Catering.View.Pages
                     .ToList();
                 OrdersDataGrid.ItemsSource = orders;
 
-                // Установим выбранный заказ асинхронно, чтобы DataGrid успел привязаться
                 this.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     if (orders.Any())
@@ -89,7 +76,6 @@ namespace Catering.View.Pages
                 var selected = OrdersDataGrid.SelectedItem as Model.Order;
                 if (selected == null)
                 {
-                    // Очистка деталей
                     StatusText.Text = string.Empty;
                     AddressText.Text = string.Empty;
                     CommentText.Text = string.Empty;

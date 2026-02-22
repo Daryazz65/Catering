@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="ManagerWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <DockPanel LastChildFill="True">
-        <!-- Меню менеджера с логотипом справа -->
         <Grid DockPanel.Dock="Top" Background="#FFF9F3" Height="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -17,7 +16,7 @@
             <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0">
                 <Button Name="BtnOrders" Content="Заказы" Width="150" Margin="0 0 8 0" Click="BtnOrders_Click" Foreground="White" />
                 <Button Name="BtnCategoryDish" Content="Категории и блюда" Width="220" Margin="0 0 8 0" Click="BtnCategoryDish_Click" Foreground="White" />
-                <Button Name="BtnUsers" Content="Пользователи" Width="150" Margin="0 0 8 0" Click="BtnUsers_Click" Foreground="White" />
+                <Button Name="BtnUsers" Content="Клиенты" Width="150" Margin="0 0 8 0" Click="BtnUsers_Click" Foreground="White" />
                 <Button Name="BtnLogout" Content="Выйти" Width="80" Margin="0 0 8 0" Click="BtnLogout_Click" Foreground="White" />
             </StackPanel>
 

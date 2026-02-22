@@ -1,20 +1,10 @@
 ﻿using Catering.AppData;
 using Catering.Model;
-using System.Data.Entity;
 using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Catering.View.Pages
 {
@@ -32,12 +22,9 @@ namespace Catering.View.Pages
         private void LoadUsers()
         {
             var context = App.GetContext();
-            // Загрузка списка пользователей (lazy loading для навигационных свойств включена в контексте)
-            // Получаем роли и пользователей из одного контекста, чтобы сущности были отслеживаемыми
             var roles = context.Role.ToList();
             var users = context.User.ToList();
 
-            // Привязываем список ролей к колонке ComboBox
             var comboCol = UsersDataGrid.Columns.OfType<DataGridComboBoxColumn>().FirstOrDefault();
             if (comboCol != null)
             {
@@ -54,7 +41,6 @@ namespace Catering.View.Pages
 
         private void UsersDataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            // Сохранить изменения, внесённые в строку
             try
             {
                 if (e.EditAction != DataGridEditAction.Commit)
@@ -62,8 +48,6 @@ namespace Catering.View.Pages
                     return;
                 }
 
-                // Сохраняем изменения асинхронно после завершения редактирования строки,
-                // чтобы избежать рекурсивного вызова RowEditEnding (CommitEdit внутри обработчика).
                 var edited = e.Row.Item as User;
                 if (edited == null)
                     return;
@@ -74,7 +58,6 @@ namespace Catering.View.Pages
                     {
                         var context = App.GetContext();
 
-                        // Валидация: логин должен быть уникален
                         if (!string.IsNullOrWhiteSpace(edited.Login))
                         {
                             bool conflict = context.User.Any(u => u.Login == edited.Login && u.Id != edited.Id);
@@ -88,7 +71,6 @@ namespace Catering.View.Pages
 
                         if (edited.Id == 0)
                         {
-                            // Новый пользователь
                             context.User.Add(edited);
                         }
                         else
@@ -148,7 +130,6 @@ namespace Catering.View.Pages
 
         private void AddUserBtn_Click(object sender, RoutedEventArgs e)
         {
-            // Простейшее добавление с дефолтными значениями. При необходимости можно открыть диалог ввода.
             var context = App.GetContext();
             try
             {

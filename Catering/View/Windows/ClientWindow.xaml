@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="Клиент" Height="700" Width="1000" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <DockPanel LastChildFill="True">
-        <!-- Верхнее меню страниц с логотипом справа -->
         <Grid DockPanel.Dock="Top" Background="#FFF9F3" Height="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -17,13 +16,12 @@
                 <Button Name="BtnAddOrder" Content="Сделать заказ" Width="140" Margin="0 0 8 0" Click="BtnAddOrder_Click" />
                 <Button Name="BtnMyOrders" Content="Мои заказы" Width="120" Margin="0 0 8 0" Click="BtnMyOrders_Click" />
                 <Button Name="BtnProfile" Content="Профиль" Width="100" Margin="0 0 8 0" Click="BtnProfile_Click" />
-                <!-- дополнительные кнопки при необходимости -->
+                <Button Name="BtnLogout" Content="Выйти" Width="90" Margin="0 0 8 0" Click="BtnLogout_Click" />
             </StackPanel>
 
             <Image Grid.Column="1" Source="/Resources/лого.png" Width="100" Height="45" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Right" />
         </Grid>
 
-        <!-- Основная область: фрейм для страниц -->
         <Frame Name="MainFrame" NavigationUIVisibility="Hidden" />
     </DockPanel>
 </Window>

@@ -27,7 +27,6 @@
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="150" />
                 <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" Width="120" />
                 <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="120" />
-                <!-- Редактируемая колонка роли: выбираем по имени, сохраняется в IdRole -->
                 <DataGridComboBoxColumn Header="Роль" SelectedValueBinding="{Binding IdRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                         SelectedValuePath="Id" DisplayMemberPath="Name" Width="180" />
             </DataGrid.Columns>

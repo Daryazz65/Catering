@@ -12,10 +12,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Orders -->
         <StackPanel Grid.Column="0">
             <TextBlock Foreground="#EE9C6A" Text="Заказы" FontWeight="Bold" Margin="0 0 0 8" />
             <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
@@ -30,13 +29,13 @@
                     <DataGridTextColumn Header="Сумма" Binding="{Binding TotalSum}" Width="100" />
                     <DataGridTextColumn Header="Адрес" Binding="{Binding DeliveryAddress}" Width="*" />
                     <DataGridTextColumn Header="Комментарий" Binding="{Binding Comment}" Width="150" />
+                    <DataGridTextColumn Header="Телефон" Binding="{Binding User.Phone}" Width="140" IsReadOnly="True" />
                     <DataGridComboBoxColumn Header="Статус" SelectedValueBinding="{Binding OrderStatus}" SelectedValuePath="Id" DisplayMemberPath="Name" Width="140" />
                     <DataGridComboBoxColumn Header="Пользователь" SelectedValueBinding="{Binding IdUser}" SelectedValuePath="Id" DisplayMemberPath="FullName" Width="180" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
 
-        <!-- Order Items -->
         <StackPanel Grid.Column="2">
             <TextBlock Foreground="#EE9C6A" Text="Элементы заказа" FontWeight="Bold" Margin="0 0 0 8" />
             <StackPanel Orientation="Horizontal" Margin="0 0 0 8">

@@ -1,21 +1,11 @@
-﻿using System;
+﻿using Catering.AppData;
+using Catering.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Catering.AppData;
-using Catering.Model;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
 
 
 namespace Catering.View.Pages
@@ -34,6 +24,35 @@ namespace Catering.View.Pages
             InitializeComponent();
             LoadData();
             CartItemsControl.ItemsSource = _cart;
+            DishesListBox.AddHandler(Button.ClickEvent, new RoutedEventHandler(DishesListBox_ButtonClick));
+        }
+
+        private void DishesListBox_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            var btn = e.OriginalSource as Button;
+            if (btn == null) return;
+            var action = btn.Tag as string;
+            var dish = btn.DataContext as Dish;
+            if (dish == null) return;
+
+            if (action == "View")
+            {
+                var info = $"{dish.Name}\n\n{dish.Description}\n\nЦена: {dish.Price:0.##} руб.\n{(dish.IsAvailable ? "Доступно" : "Недоступно")}";
+                MessageBoxHelper.Information(info);
+            }
+            else if (action == "Quick")
+            {
+                var existing = _cart.FirstOrDefault(c => c.Dish.Id == dish.Id);
+                if (existing != null)
+                {
+                    existing.Quantity++;
+                }
+                else
+                {
+                    _cart.Add(new CartItem { Dish = dish, Quantity = 1, Price = dish.Price });
+                }
+                RefreshCart();
+            }
         }
 
         private void LoadData()
@@ -57,13 +76,13 @@ namespace Catering.View.Pages
         {
             CategoriesPanel.Children.Clear();
 
-            var allBtn = new Button { Content = "Все", Margin = new Thickness(4,0,4,0), Padding = new Thickness(8,4,8,4) };
+            var allBtn = new Button { Content = "Все", Margin = new Thickness(4, 0, 4, 0), Padding = new Thickness(8, 4, 8, 4) };
             allBtn.Click += (s, e) => RenderDishes(_dishes);
             CategoriesPanel.Children.Add(allBtn);
 
             foreach (var c in _categories)
             {
-                var btn = new Button { Content = c.Name, Tag = c, Margin = new Thickness(4,0,4,0), Padding = new Thickness(8,4,8,4) };
+                var btn = new Button { Content = c.Name, Tag = c, Margin = new Thickness(4, 0, 4, 0), Padding = new Thickness(8, 4, 8, 4) };
                 btn.Click += (s, e) =>
                 {
                     var cat = (s as Button).Tag as Category;
@@ -76,26 +95,37 @@ namespace Catering.View.Pages
 
         private void RenderDishes(List<Dish> dishes)
         {
-            DishesPanel.Children.Clear();
-            foreach (var d in dishes)
-            {
-                var border = new Border { Width = 200, Height = 150, Margin = new Thickness(6), Background = Brushes.White, CornerRadius = new CornerRadius(6), BorderBrush = (Brush)new BrushConverter().ConvertFromString("#ddd"), BorderThickness = new Thickness(1) };
-                var sp = new StackPanel { Margin = new Thickness(8) };
-                var name = new TextBlock { Text = d.Name, FontWeight = FontWeights.Bold };
-                var desc = new TextBlock { Text = d.Description, FontSize = 12, Foreground = Brushes.Gray, TextWrapping = TextWrapping.Wrap, Height = 60 };
-                var bottom = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Stretch };
-                var price = new TextBlock { Text = d.Price.ToString("0.##") + " руб.", VerticalAlignment = VerticalAlignment.Center, FontWeight = FontWeights.Bold };
-                var addBtn = new Button { Content = "В корзину", HorizontalAlignment = HorizontalAlignment.Right, Tag = d, Margin = new Thickness(8,0,0,0) };
-                addBtn.Click += AddToCart_Click;
-                bottom.Children.Add(price);
-                bottom.Children.Add(addBtn);
+            DishesListBox.ItemsSource = dishes;
+        }
 
-                sp.Children.Add(name);
-                sp.Children.Add(desc);
-                sp.Children.Add(bottom);
-                border.Child = sp;
-                DishesPanel.Children.Add(border);
+        public void ViewDish_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null) return;
+            var dish = btn.DataContext as Dish;
+            if (dish == null) return;
+
+            var info = $"{dish.Name}\n\n{dish.Description}\n\nЦена: {dish.Price:0.##} руб.\n{(dish.IsAvailable ? "Доступно" : "Недоступно")}";
+            MessageBoxHelper.Information(info);
+        }
+
+        public void QuickAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null) return;
+            var dish = btn.DataContext as Dish;
+            if (dish == null) return;
+
+            var existing = _cart.FirstOrDefault(c => c.Dish.Id == dish.Id);
+            if (existing != null)
+            {
+                existing.Quantity++;
             }
+            else
+            {
+                _cart.Add(new CartItem { Dish = dish, Quantity = 1, Price = dish.Price });
+            }
+            RefreshCart();
         }
 
         private void AddToCart_Click(object sender, RoutedEventArgs e)
@@ -141,7 +171,6 @@ namespace Catering.View.Pages
 
         private void RefreshCart()
         {
-            // Refresh ItemsControl
             CartItemsControl.ItemsSource = null;
             CartItemsControl.ItemsSource = _cart;
 

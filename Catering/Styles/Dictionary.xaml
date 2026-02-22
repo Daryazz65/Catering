@@ -4,7 +4,7 @@
         <Setter Property="Padding" Value="5 0"/>
         <Setter Property="BorderBrush" Value="#EE9C6A " />
         <Setter Property="Background" Value="#EE9C6A " />
-        <Setter Property="Height" Value="45" />
+        <Setter Property="Height" Value="35" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
@@ -149,8 +149,8 @@
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="#EE9C6A " />
-        <Setter Property="Background" Value="#FFE5D1" />
+        <Setter Property="BorderBrush" Value="#EE9C6A" />
+        <Setter Property="Background" Value="#FFFFD0A2" />
         <Setter Property="VerticalContentAlignment" Value="center" />
         <Setter Property="HorizontalContentAlignment" Value="center" />
         <Setter Property="Height" Value="40" />
@@ -173,7 +173,7 @@
         <Setter Property="Padding" Value="5" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="#EE9C6A " />
-        <Setter Property="Background" Value="#FFE5D1" />
+        <Setter Property="Background" Value="#FFFFD0A2" />
         <Setter Property="Height" Value="40"/>
         <Setter Property="Foreground" Value="White" />
 

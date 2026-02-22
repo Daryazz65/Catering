@@ -14,7 +14,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- Read-only users list for manager: no add/delete, only view clients -->
         <DataGrid x:Name="UsersDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" Width="50" />
